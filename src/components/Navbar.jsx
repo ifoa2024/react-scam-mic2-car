@@ -15,47 +15,46 @@ export default function Navbar(){
 
     return (
         <>
-            <div className="navbar -100">
-  <div className="flex-1 bg-RGB(201, 36, 7)">
-    <Link className="btn btn-ghost text-xl" to={routes.home}>Autoscam24</Link>
-  </div>
-  <div className="flex-none">
-    <ul className="menu menu-horizontal px-1">
-      <li><Link className="nav-link" to={routes.info}>Info</Link></li>
-      
-      <li>
-        <details>
-            {!user && 
-            <>
-                <summary>Benvenuto</summary>
-                    <ul className="bg-base-100 rounded-t-none p-2">
-                        <li>
-                        <Link className="nav-link" to={routes.register}>Registrati</Link>
-                        </li>
-                    </ul>
-            
-            </>
-
-            ||
-
-            <>
-            <details>
-                 <summary>Benvenuto {user.name}</summary>
-                <ul className="bg-base-100 rounded-t-none p-2">
+        <div className="navbar -100">
+            <div className="flex-1 bg-RGB(201, 36, 7)">
+                <Link className="btn btn-ghost text-xl" to={routes.home}>Autoscam24</Link>
+            </div>
+            <div className="flex-none">
+                <ul className="menu menu-horizontal px-1">
+                    <li><Link className="nav-link" to={routes.info}>Info</Link></li>               
                     <li>
-                    <Link to={routes.todo}>ToDo</Link>
-                    <button onClick={logout}>Logout</button>
+                        <details>
+                            {!user && 
+                            <>
+                                <summary>Benvenuto</summary>
+                                    <ul className="bg-base-100 rounded-t-none p-2">
+                                        <li>
+                                        <Link className="nav-link" to={routes.register}>Registrati</Link>
+                                        </li>
+                                    </ul>
+                            
+                            </>
+
+                            ||
+
+                            <>
+                            <details>
+                                <summary>Benvenuto {user.name}</summary>
+                                <ul className="bg-base-100 rounded-t-none p-2">
+                                    <li>
+                                    <Link to={routes.todo}>ToDo</Link>
+                                    <button onClick={logout}>Logout</button>
+                                    </li>
+                                </ul>
+
+                            </details>
+                            </>          
+                            }
+                        </details>
                     </li>
                 </ul>
-
-            </details>
-            </>          
-            }
-        </details>
-      </li>
-    </ul>
-  </div>
-</div>
+            </div>
+        </div>
 
         </>
     )

@@ -42,7 +42,7 @@ export default function Homepage() {
   };
 
   // Hook per il modulo
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   // Funzione per invio modulo
   const onSubmit = (data) => {
@@ -83,50 +83,57 @@ export default function Homepage() {
               <span>
                 <p className="font-bold">{count} carte</p>
               </span>
-              <div className="mt-4">
-                <form action="" onSubmit={handleSubmit(onSubmit)}>
-                  <input
-                    type="name"
-                    className="border border-gray-300 rounded-lg p-2 w-full"
-                    {...register("name")}
-                    placeholder="nome"
-                  />
-                  <div>
+                <div className="mt-4">
+                    <form action="" onSubmit={handleSubmit(onSubmit)}>
+                    {errors.name?.type === 'required' && (
+                        <p role="alert"> Nome non presente o valido</p>
+                    )}
+                        {errors.name?.type === 'maxLength' && (
+                            <p role="alert"> Il nome deve avere massimo 30 caratteri</p>
+                        )}
                     <input
-                      type="email"
-                      className="border border-gray-300 rounded-lg p-2 w-full"
-                      {...register("email")}
-                      placeholder="email"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="bg-black my-3 py-3 px-3 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
-                  >
-                    Richiedi {count} carte
-                  </button>
-                </form>
-              </div>
+                        type="name"
+                        className="border border-gray-300 rounded-lg p-2 w-full my-3"
+                        {...register("name", {required: true, maxLength:30})} aria-invalid={errors.name ? 'true' : 'false'}
+                        placeholder="nome"/>
+                    <div>
+                    {errors.email?.type === 'required' && (
+                            <p role="alert"> Email non presente o valida</p>
+                    )}
+                        <input
+                        type="email"
+                        className="border border-gray-300 rounded-lg p-2 w-full"
+                        {...register("email", {required: true})} aria-invalid={errors.email ? 'true' : 'false'}
+                        placeholder="email"/>
+                    </div>
+                    <button
+                        type="submit"
+                        className="bg-black my-3 py-3 px-3 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
+                    >
+                        Richiedi {count} carte
+                    </button>
+                    </form>
+                </div>
             </div>
 
             {/* Sezione Bottone con Immagini */}
             {showImages && (
               <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-center">
-                <h1 className="italic font-bold underline-offset-4 py-3">
-                    Sei collegato con il nostro operatore: Rakesh
-                </h1>
-                <button
-                  onClick={playAudio}
-                  className="px-6 py-3 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
-                >
-                  Aggiungi le carte al carrello!
-                </button>
-                <img src={rakesh} alt="Rakesh" className="max-w-full max-h-64 mb-4" />
-                <img src={cardImage} alt="card" className="max-w-full max-h-64" />
-                <audio
-                  src="../assets/do-not-redeem-the-card-made-with-Voicemod.mp3"
-                  preload="auto"
-                ></audio>
+                    <h1 className="italic font-bold underline-offset-4 py-3">
+                        Sei collegato con il nostro operatore: Rakesh
+                    </h1>
+                    <button
+                    onClick={playAudio}
+                    className="px-6 py-3 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4">
+                    Aggiungi le carte al carrello!
+                    </button>
+                    <img src={rakesh} alt="Rakesh" className="max-w-full max-h-64 mb-4" />
+                    <img src={cardImage} alt="card" className="max-w-full max-h-64" />
+                    <audio
+                    src="../assets/do-not-redeem-the-card-made-with-Voicemod.mp3"
+                    preload="auto">
+                        
+                    </audio>
               </div>
             )}
           </div>
